@@ -5,17 +5,6 @@
 # 直连域名使用的 DNS 解析器
 dns-server = 223.5.5.5, 119.29.29.29, https://223.5.5.5/dns-query, https://doh.pub/dns-query
 
-[Host]
-# 连通性检测与 NTP 域名使用系统 DNS 解析真实 IP，不分配虚拟 IP
-+.msftconnecttest.com = server:system
-+.msftncsi.com = server:system
-+.msftncsi.com.cn = server:system
-captive.apple.com = server:system
-connectivitycheck.gstatic.com = server:system
-detectportal.firefox.com = server:system
-+.pool.ntp.org = server:system
-+.time.edu.cn = server:system
-
 [Proxy Group]
 # 地区节点分组（手动选择，按正则筛选订阅节点）
 🇭🇰 香港节点 = select, policy-regex-filter=(?i)(香港|hong ?kong|\bhk\b|🇭🇰)
@@ -41,6 +30,7 @@ Ultra = select, 🇺🇸 美国节点, include-all-proxies=true
 Google Voice = select, 🇺🇸 美国节点
 📹 油管视频 = select, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
 Ⓜ️ 微软 = select, DIRECT, include-all-proxies=true
+GitHub = select, DIRECT, include-all-proxies=true
 Ⓜ️ OneDrive = select, DIRECT, include-all-proxies=true
 📺 哔哩哔哩 = select, DIRECT, include-all-proxies=true
 🔮 IP归属地 = select, DIRECT, include-all-proxies=true
@@ -55,8 +45,8 @@ WeChat = select, DIRECT, 🇸🇬 狮城节点
 🐟 漏网之鱼 = select, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
 
 [Rule]
-DOMAIN,emby.yzt.lol,Emby影视服
 DOMAIN,emby.yzt.moe,Emby影视服
+DOMAIN,emby.yzt.lol,Emby影视服
 DOMAIN-SUFFIX,mnc001.mcc530.pub.3gppnetwork.org,ONE NZ
 DOMAIN-SUFFIX,mnc003.mcc530.pub.3gppnetwork.org,ONE NZ
 IP-CIDR,202.49.0.0/16,ONE NZ,no-resolve
@@ -87865,6 +87855,16 @@ IP-CIDR,209.85.233.188/32,📢 谷歌,no-resolve
 DOMAIN-SUFFIX,bing.com,Ⓜ️ 微软
 DOMAIN-SUFFIX,copilot.cloud.microsoft,Ⓜ️ 微软
 DOMAIN-SUFFIX,copilot.microsoft.com,Ⓜ️ 微软
+DOMAIN-SUFFIX,github.com,GitHub
+DOMAIN-SUFFIX,github.io,GitHub
+DOMAIN-SUFFIX,github.blog,GitHub
+DOMAIN-SUFFIX,github.community,GitHub
+DOMAIN-SUFFIX,githubstatus.com,GitHub
+DOMAIN-SUFFIX,github.dev,GitHub
+DOMAIN-SUFFIX,githubusercontent.com,GitHub
+DOMAIN-SUFFIX,githubassets.com,GitHub
+DOMAIN-SUFFIX,githubapp.com,GitHub
+DOMAIN-SUFFIX,githubcopilot.com,GitHub
 PROCESS-NAME,OneDrive,Ⓜ️ OneDrive
 PROCESS-NAME,OneDriveUpdater,Ⓜ️ OneDrive
 DOMAIN-KEYWORD,1drv,Ⓜ️ OneDrive
