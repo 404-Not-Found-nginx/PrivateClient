@@ -55,8 +55,8 @@ WeChat = select, DIRECT, 🇸🇬 狮城节点
 🐟 漏网之鱼 = select, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
 
 [Rule]
-DOMAIN,www.emby.com,Emby影视服
-DOMAIN,www.emby1.com,Emby影视服
+DOMAIN,emby.yzt.lol,Emby影视服
+DOMAIN,emby.yzt.moe,Emby影视服
 DOMAIN-SUFFIX,mnc001.mcc530.pub.3gppnetwork.org,ONE NZ
 DOMAIN-SUFFIX,mnc003.mcc530.pub.3gppnetwork.org,ONE NZ
 IP-CIDR,202.49.0.0/16,ONE NZ,no-resolve
