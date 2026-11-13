@@ -5,17 +5,6 @@
 # 直连域名使用的 DNS 解析器
 dns-server = 223.5.5.5, 119.29.29.29, https://223.5.5.5/dns-query, https://doh.pub/dns-query
 
-[Host]
-# 连通性检测与 NTP 域名使用系统 DNS 解析真实 IP，不分配虚拟 IP
-+.msftconnecttest.com = server:system
-+.msftncsi.com = server:system
-+.msftncsi.com.cn = server:system
-captive.apple.com = server:system
-connectivitycheck.gstatic.com = server:system
-detectportal.firefox.com = server:system
-+.pool.ntp.org = server:system
-+.time.edu.cn = server:system
-
 [Proxy Group]
 # 地区节点分组（手动选择，按正则筛选订阅节点）
 🇭🇰 香港节点 = select, policy-regex-filter=(?i)(香港|hong ?kong|\bhk\b|🇭🇰)
@@ -41,6 +30,7 @@ Ultra = select, 🇺🇸 美国节点, include-all-proxies=true
 Google Voice = select, 🇺🇸 美国节点
 📹 油管视频 = select, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
 Ⓜ️ 微软 = select, DIRECT, include-all-proxies=true
+GitHub = select, DIRECT, include-all-proxies=true
 Ⓜ️ OneDrive = select, DIRECT, include-all-proxies=true
 📺 哔哩哔哩 = select, DIRECT, include-all-proxies=true
 🔮 IP归属地 = select, DIRECT, include-all-proxies=true
@@ -56,8 +46,8 @@ WeChat = select, DIRECT, 🇸🇬 狮城节点
 
 [Rule]
 # 1. Emby影视服
-DOMAIN,www.emby.com,Emby影视服
-DOMAIN,www.emby1.com,Emby影视服
+DOMAIN,emby.yzt.moe,Emby影视服
+DOMAIN,emby.yzt.lol,Emby影视服
 
 # 2. ONE NZ
 DOMAIN-SUFFIX,mnc001.mcc530.pub.3gppnetwork.org,ONE NZ
@@ -399,7 +389,20 @@ DOMAIN,copilot-proxy.githubusercontent.com,💬 Ai平台
 DOMAIN-SUFFIX,copilot.cloud.microsoft,💬 Ai平台
 DOMAIN-SUFFIX,copilot.microsoft.com,💬 Ai平台
 
-# 9. OneDrive
+# 9. GitHub
+GEOSITE,github,GitHub
+DOMAIN-SUFFIX,github.com,GitHub
+DOMAIN-SUFFIX,github.io,GitHub
+DOMAIN-SUFFIX,github.blog,GitHub
+DOMAIN-SUFFIX,github.community,GitHub
+DOMAIN-SUFFIX,githubstatus.com,GitHub
+DOMAIN-SUFFIX,github.dev,GitHub
+DOMAIN-SUFFIX,githubusercontent.com,GitHub
+DOMAIN-SUFFIX,githubassets.com,GitHub
+DOMAIN-SUFFIX,githubapp.com,GitHub
+DOMAIN-SUFFIX,githubcopilot.com,GitHub
+
+# 10. OneDrive
 GEOSITE,onedrive,Ⓜ️ OneDrive
 PROCESS-NAME,OneDrive,Ⓜ️ OneDrive
 PROCESS-NAME,OneDriveUpdater,Ⓜ️ OneDrive
@@ -419,17 +422,17 @@ DOMAIN-SUFFIX,storage.live.com,Ⓜ️ OneDrive
 DOMAIN-SUFFIX,storage.msn.com,Ⓜ️ OneDrive
 DOMAIN-SUFFIX,microsoftpersonalcontent.com,Ⓜ️ OneDrive
 
-# 10. 微软服务
+# 11. 微软服务
 GEOSITE,microsoft,Ⓜ️ 微软
 
-# 11. 油管视频
+# 12. 油管视频
 GEOSITE,youtube,📹 油管视频
 
-# 12. 谷歌服务
+# 13. 谷歌服务
 GEOSITE,google,📢 谷歌
 GEOIP,google,📢 谷歌,no-resolve
 
-# 13. 苹果服务
+# 14. 苹果服务
 GEOSITE,apple,🍎 苹果服务
 IP-CIDR,17.0.0.0/8,🍎 苹果服务,no-resolve
 IP-CIDR,63.92.224.0/19,🍎 苹果服务,no-resolve
@@ -442,11 +445,11 @@ IP-CIDR,192.35.50.0/24,🍎 苹果服务,no-resolve
 IP-CIDR,198.183.17.0/24,🍎 苹果服务,no-resolve
 IP-CIDR,205.180.175.0/24,🍎 苹果服务,no-resolve
 
-# 14. 电报消息
+# 15. 电报消息
 GEOSITE,telegram,📲 电报消息
 GEOIP,telegram,📲 电报消息,no-resolve
 
-# 15. WeChat
+# 16. WeChat
 DOMAIN-SUFFIX,wechat.com,WeChat
 DOMAIN-SUFFIX,wechatlegal.net,WeChat
 DOMAIN-SUFFIX,wechatos.net,WeChat
@@ -461,25 +464,25 @@ IP-CIDR,43.152.0.0/16,WeChat,no-resolve
 IP-CIDR,43.153.0.0/16,WeChat,no-resolve
 IP-CIDR,43.156.0.0/16,WeChat,no-resolve
 
-# 16. 闲鱼
+# 17. 闲鱼
 IP-CIDR,47.246.0.0/16,闲鱼
 IP-CIDR,59.82.0.0/16,闲鱼
 DOMAIN-KEYWORD,goofish,闲鱼
 DOMAIN-SUFFIX,g.alicdn.com,闲鱼
 DOMAIN-SUFFIX,gw.alicdn.com,闲鱼
 
-# 17. 游戏平台
+# 18. 游戏平台
 GEOSITE,steam,🎮 游戏平台
 GEOSITE,epicgames,🎮 游戏平台
 GEOSITE,ea,🎮 游戏平台
 GEOSITE,playstation,🎮 游戏平台
 GEOSITE,nintendo,🎮 游戏平台
 
-# 18. 奈飞视频
+# 19. 奈飞视频
 GEOSITE,netflix,🎥 奈飞视频
 GEOIP,netflix,🎥 奈飞视频,no-resolve
 
-# 19. 国内媒体
+# 20. 国内媒体
 GEOSITE,iqiyi,🌏 国内媒体
 GEOSITE,youku,🌏 国内媒体
 DOMAIN,apiintl.biliapi.net,🌏 国内媒体
@@ -520,7 +523,7 @@ DOMAIN-SUFFIX,vv.video.qq.com,🌏 国内媒体
 DOMAIN-SUFFIX,youku.com,🌏 国内媒体
 IP-CIDR,106.11.0.0/16,🌏 国内媒体,no-resolve
 
-# 20. 国外媒体
+# 21. 国外媒体
 GEOSITE,disney,🌍 国外媒体
 GEOSITE,spotify,🌍 国外媒体
 GEOSITE,tiktok,🌍 国外媒体
@@ -532,7 +535,7 @@ GEOSITE,hbo,🌍 国外媒体
 GEOSITE,dazn,🌍 国外媒体
 GEOSITE,abema,🌍 国外媒体
 
-# 21. 全球直连（进程与国内域名/IP）
+# 22. 全球直连（进程与国内域名/IP）
 PROCESS-NAME,aria2c.exe,🎯 全球直连
 PROCESS-NAME,fdm.exe,🎯 全球直连
 PROCESS-NAME,Folx.exe,🎯 全球直连
@@ -551,6 +554,6 @@ DOMAIN-SUFFIX,cn,🎯 全球直连
 GEOSITE,cn,🎯 全球直连
 GEOIP,cn,🎯 全球直连
 
-# 22. 漏网之鱼与兜底规则
+# 23. 漏网之鱼与兜底规则
 GEOSITE,geolocation-!cn,🐟 漏网之鱼
 FINAL,🐟 漏网之鱼
