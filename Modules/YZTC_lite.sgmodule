@@ -1,0 +1,556 @@
+#!name=YZTC 分流模块（GeoSite 精简版）
+#!desc=仿照 YZTC.yaml 规格与内容生成的分流模块（无节点信息，通用规则使用 PopCat 官方支持的 GeoSite / GeoIP 精简替换）。
+
+[General]
+# 直连域名使用的 DNS 解析器
+dns-server = 223.5.5.5, 119.29.29.29, https://223.5.5.5/dns-query, https://doh.pub/dns-query
+
+[Host]
+# 连通性检测与 NTP 域名使用系统 DNS 解析真实 IP，不分配虚拟 IP
++.msftconnecttest.com = server:system
++.msftncsi.com = server:system
++.msftncsi.com.cn = server:system
+captive.apple.com = server:system
+connectivitycheck.gstatic.com = server:system
+detectportal.firefox.com = server:system
++.pool.ntp.org = server:system
++.time.edu.cn = server:system
+
+[Proxy Group]
+# 地区节点分组（手动选择，按正则筛选订阅节点）
+🇭🇰 香港节点 = select, policy-regex-filter=(?i)(香港|hong ?kong|hk|🇭🇰)
+🇲🇴 澳门节点 = select, policy-regex-filter=(?i)(澳门|macao|macau|mo|🇲🇴)
+🇯🇵 日本节点 = select, policy-regex-filter=(?i)(日本|japan|jp|🇯🇵)
+🇺🇸 美国节点 = select, policy-regex-filter=(?i)(美国|united ?states|usa?|🇺🇸)
+🇹🇼 台湾节点 = select, policy-regex-filter=(?i)(台湾|taiwan|tw|🇹🇼|🇨🇳 台湾)
+🇸🇬 狮城节点 = select, policy-regex-filter=(?i)(新加坡|狮城|singapore|sg|🇸🇬)
+🇰🇷 韩国节点 = select, policy-regex-filter=(?i)(韩国|korea|kr|🇰🇷)
+🇮🇳 印度节点 = select, policy-regex-filter=(?i)(印度|india|in|🇮🇳), exclude-regex=(?i)(印度尼西亚|indonesia)
+🇺🇦 乌克兰节点 = select, policy-regex-filter=(?i)(乌克兰|ukraine|ua|🇺🇦)
+🇷🇺 俄罗斯节点 = select, policy-regex-filter=(?i)(俄罗斯|russia|ru|🇷🇺)
+🇹🇷 土耳其节点 = select, policy-regex-filter=(?i)(土耳其|turkey|tr|🇹🇷)
+🇦🇷 阿根廷节点 = select, policy-regex-filter=(?i)(阿根廷|argentina|ar|🇦🇷)
+
+# 功能策略分组
+Emby影视服 = select, 🇭🇰 香港节点, 🇲🇴 澳门节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, policy-regex-filter=(?i)emby
+ONE NZ = select, include-all-proxies=true
+Ultra = select, 🇺🇸 美国节点, include-all-proxies=true
+📲 电报消息 = select, DIRECT, include-all-proxies=true
+💬 Ai平台 = select, 🇺🇸 美国节点, DIRECT, include-all-proxies=true
+📢 谷歌 = select, DIRECT, include-all-proxies=true
+Google Voice = select, 🇺🇸 美国节点
+📹 油管视频 = select, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
+Ⓜ️ 微软 = select, DIRECT, include-all-proxies=true
+Ⓜ️ OneDrive = select, DIRECT, include-all-proxies=true
+📺 哔哩哔哩 = select, DIRECT, include-all-proxies=true
+🔮 IP归属地 = select, DIRECT, include-all-proxies=true
+🍎 苹果服务 = select, DIRECT, 🇺🇸 美国节点, include-all-proxies=true
+WeChat = select, DIRECT, 🇸🇬 狮城节点
+闲鱼 = select, DIRECT, include-all-proxies=true
+🎮 游戏平台 = select, DIRECT, 🇺🇸 美国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, include-all-proxies=true
+🌍 国外媒体 = select, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
+🎯 全球直连 = select, DIRECT, include-all-proxies=true
+🌏 国内媒体 = select, DIRECT, 🇭🇰 香港节点, 🇲🇴 澳门节点, 🇹🇼 台湾节点, include-all-proxies=true
+🎥 奈飞视频 = select, 🇸🇬 狮城节点, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
+🐟 漏网之鱼 = select, 🇭🇰 香港节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇸 美国节点, 🇰🇷 韩国节点, 🇮🇳 印度节点, 🇺🇦 乌克兰节点, 🇷🇺 俄罗斯节点, 🇹🇷 土耳其节点, 🇦🇷 阿根廷节点, DIRECT, include-all-proxies=true
+
+[Rule]
+# 1. Emby影视服
+DOMAIN,www.emby.com,Emby影视服
+DOMAIN,www.emby1.com,Emby影视服
+
+# 2. ONE NZ
+DOMAIN-SUFFIX,mnc001.mcc530.pub.3gppnetwork.org,ONE NZ
+DOMAIN-SUFFIX,mnc003.mcc530.pub.3gppnetwork.org,ONE NZ
+IP-CIDR,202.49.0.0/16,ONE NZ,no-resolve
+IP-CIDR,103.212.48.0/22,ONE NZ,no-resolve
+IP-CIDR,118.148.0.0/16,ONE NZ,no-resolve
+IP-CIDR,203.96.0.0/16,ONE NZ,no-resolve
+DOMAIN-SUFFIX,one.nz,ONE NZ
+
+# 3. Ultra
+DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com,Ultra
+DOMAIN-SUFFIX,epdg.epc.mnc260.mcc310.pub.3gppnetwork.org,Ultra
+DOMAIN-SUFFIX,ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org,Ultra
+DOMAIN-SUFFIX,ss.epdg.epc.geo.mnc260.mcc310.pub.3gppnetwork.org,Ultra
+DOMAIN-SUFFIX,entitlement.auth.t-mobile.com,Ultra
+DOMAIN-SUFFIX,vvm.t-mobile.com,Ultra
+DOMAIN-SUFFIX,ultramobile.com,Ultra
+IP-CIDR,208.54.0.0/16,Ultra,no-resolve
+IP-CIDR,66.94.0.0/19,Ultra,no-resolve
+DOMAIN-SUFFIX,epdg.epc.mnc480.mcc311.pub.3gppnetwork.org,Ultra
+DOMAIN-SUFFIX,wo.vzwwo.com,Ultra
+DOMAIN-SUFFIX,vzw.com,Ultra
+IP-CIDR,69.82.0.0/15,Ultra,no-resolve
+DOMAIN-SUFFIX,epdg.epc.mnc410.mcc310.pub.3gppnetwork.org,Ultra
+DOMAIN-SUFFIX,att.com,Ultra
+IP-CIDR,166.128.0.0/9,Ultra,no-resolve
+DOMAIN-SUFFIX,fi.google.com,Ultra
+DOMAIN-KEYWORD,googlefi,Ultra
+DOMAIN-KEYWORD,mcc310,Ultra
+DOMAIN-KEYWORD,mcc311,Ultra
+
+# 4. 哔哩哔哩
+GEOSITE,bilibili,📺 哔哩哔哩
+DOMAIN,p-bstarstatic.akamaized.net,📺 哔哩哔哩
+DOMAIN,p.bstarstatic.com,📺 哔哩哔哩
+DOMAIN,upos-bstar-mirrorakam.akamaized.net,📺 哔哩哔哩
+DOMAIN,upos-bstar1-mirrorakam.akamaized.net,📺 哔哩哔哩
+DOMAIN,upos-hz-mirrorakam.akamaized.net,📺 哔哩哔哩
+DOMAIN-SUFFIX,acgvideo.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,bilibili.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,bilibili.tv,📺 哔哩哔哩
+IP-CIDR,45.43.32.234/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,103.151.150.0/23,📺 哔哩哔哩,no-resolve
+IP-CIDR,119.29.29.29/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,128.1.62.200/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,128.1.62.201/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,150.116.92.250/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,164.52.33.178/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,164.52.33.182/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,164.52.76.18/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,203.107.1.33/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,203.107.1.34/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,203.107.1.65/32,📺 哔哩哔哩,no-resolve
+IP-CIDR,203.107.1.66/32,📺 哔哩哔哩,no-resolve
+DOMAIN,apiintl.biliapi.net,📺 哔哩哔哩
+DOMAIN-SUFFIX,acg.tv,📺 哔哩哔哩
+DOMAIN-SUFFIX,b23.tv,📺 哔哩哔哩
+DOMAIN-SUFFIX,bigfun.cn,📺 哔哩哔哩
+DOMAIN-SUFFIX,bigfunapp.cn,📺 哔哩哔哩
+DOMAIN-SUFFIX,biliapi.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,biliapi.net,📺 哔哩哔哩
+DOMAIN-SUFFIX,bilibili.co,📺 哔哩哔哩
+DOMAIN-SUFFIX,biligame.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,biligame.net,📺 哔哩哔哩
+DOMAIN-SUFFIX,biliintl.co,📺 哔哩哔哩
+DOMAIN-SUFFIX,bilivideo.cn,📺 哔哩哔哩
+DOMAIN-SUFFIX,bilivideo.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,hdslb.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,im9.com,📺 哔哩哔哩
+DOMAIN-SUFFIX,smtcdns.net,📺 哔哩哔哩
+
+# 5. IP归属地（含 HTTPDNS 拦截与静态资源直连）
+DOMAIN,httpdns.bilivideo.com,REJECT
+IP-CIDR,47.101.175.206/32,REJECT
+IP-CIDR,47.100.123.169/32,REJECT
+IP-CIDR,120.46.169.234/32,REJECT
+IP-CIDR,121.36.72.124/32,REJECT
+IP-CIDR,116.63.10.135/32,REJECT
+IP-CIDR,122.9.7.134/32,REJECT
+IP-CIDR,117.185.228.108/32,REJECT
+IP-CIDR,117.144.238.29/32,REJECT
+IP-CIDR,122.9.13.79/32,REJECT
+IP-CIDR,122.9.15.129/32,REJECT
+IP-CIDR,101.91.140.224/32,REJECT
+IP-CIDR,101.91.140.124/32,REJECT
+IP-CIDR,114.116.215.110/32,REJECT
+IP-CIDR,116.63.10.31/32,REJECT
+IP-CIDR,112.64.218.119/32,REJECT
+IP-CIDR,112.65.200.117/32,REJECT
+DOMAIN-SUFFIX,biliapi.net,🔮 IP归属地
+DOMAIN-SUFFIX,biliapi.com,🔮 IP归属地
+DOMAIN-SUFFIX,bilibili.com,🔮 IP归属地
+IP-CIDR,203.107.1.0/24,🔮 IP归属地
+DOMAIN-SUFFIX,bilivideo.com,DIRECT
+DOMAIN-SUFFIX,akamaized.net,DIRECT
+DOMAIN-SUFFIX,hdslb.com,DIRECT
+DOMAIN-SUFFIX,szbdyd.com,DIRECT
+DOMAIN-SUFFIX,weibo.cn,🔮 IP归属地
+DOMAIN-SUFFIX,weibo.com,🔮 IP归属地
+DOMAIN-SUFFIX,weibocdn.com,🔮 IP归属地
+DOMAIN-SUFFIX,wbimg.cn,🔮 IP归属地
+DOMAIN-SUFFIX,wbimg.com,🔮 IP归属地
+DOMAIN-SUFFIX,sinaimg.cn,🔮 IP归属地
+DOMAIN-KEYWORD,weibo,🔮 IP归属地
+DOMAIN,tieba.baidu.com,🔮 IP归属地
+DOMAIN,tbmsg.baidu.com,🔮 IP归属地
+DOMAIN,tb5.bdstatic.com,🔮 IP归属地
+DOMAIN,fclog.baidu.com,🔮 IP归属地
+DOMAIN,gsp0.baidu.com,🔮 IP归属地
+DOMAIN,hm.baidu.com,🔮 IP归属地
+DOMAIN,www.baidu.com,🔮 IP归属地
+DOMAIN,tiebac.baidu.com,🔮 IP归属地
+IP-CIDR,180.76.76.0/24,🔮 IP归属地
+DOMAIN,httpsdns.baidu.com,🔮 IP归属地
+DOMAIN,c.tieba.baidu.com,🔮 IP归属地
+DOMAIN,httpdns.baidu.com,🔮 IP归属地
+DOMAIN,httpdns.baidubce.com,🔮 IP归属地
+DOMAIN,szshort.weixin.qq.com,🔮 IP归属地
+DOMAIN,szextshort.weixin.qq.com,🔮 IP归属地
+DOMAIN,szminorshort.weixin.qq.com,🔮 IP归属地
+DOMAIN,mp.weixin.qq.com,🔮 IP归属地
+DOMAIN-SUFFIX,zhihu.com,🔮 IP归属地
+IP-CIDR,103.41.167.0/24,🔮 IP归属地
+IP-CIDR,118.89.204.198/23,REJECT
+DOMAIN-KEYWORD,core-c-lq,🔮 IP归属地
+DOMAIN-KEYWORD,core-lq,🔮 IP归属地
+DOMAIN-KEYWORD,normal-c-lq,🔮 IP归属地
+DOMAIN-KEYWORD,normal-lq,🔮 IP归属地
+DOMAIN-KEYWORD,search-quic-lq,🔮 IP归属地
+DOMAIN-KEYWORD,search-lq,🔮 IP归属地
+DOMAIN-SUFFIX,zijieapi.com,DIRECT
+DOMAIN-SUFFIX,ecombdapi.com,DIRECT
+DOMAIN-KEYWORD,-normal-hl,🔮 IP归属地
+DOMAIN-KEYWORD,-normal-c-hl,🔮 IP归属地
+DOMAIN-KEYWORD,-core-c-hl,🔮 IP归属地
+DOMAIN-KEYWORD,-normal-lf,🔮 IP归属地
+DOMAIN-KEYWORD,-normal-c-lf,🔮 IP归属地
+DOMAIN-KEYWORD,-core-c-lf,🔮 IP归属地
+DOMAIN,sso.douyin.com,🔮 IP归属地
+DOMAIN,www.douyin.com,🔮 IP归属地
+DOMAIN-SUFFIX,snssdk.com,🔮 IP归属地
+DOMAIN-SUFFIX,toutiaoapi.com,🔮 IP归属地
+DOMAIN-SUFFIX,gifshow.com,🔮 IP归属地
+DOMAIN-SUFFIX,ksapisrv.com,🔮 IP归属地
+DOMAIN-SUFFIX,xiaohongshu.com,🔮 IP归属地
+DOMAIN-KEYWORD,xiaohongshu,🔮 IP归属地
+IP-CIDR,114.55.236.88/32,🔮 IP归属地
+IP-CIDR,47.97.64.97/32,🔮 IP归属地
+IP-CIDR,47.97.66.48/32,🔮 IP归属地
+IP-CIDR,81.69.116.86/32,🔮 IP归属地
+IP-CIDR,119.45.249.52/32,🔮 IP归属地
+IP-CIDR,81.69.116.87/32,🔮 IP归属地
+IP-CIDR,119.45.2.92/32,🔮 IP归属地
+IP-CIDR,1.13.12.27/32,🔮 IP归属地
+IP-CIDR,81.69.116.102/32,🔮 IP归属地
+IP-CIDR,43.159.25.122/32,🔮 IP归属地
+IP-CIDR,43.159.25.28/32,🔮 IP归属地
+IP-CIDR,47.246.29.223/32,🔮 IP归属地
+IP-CIDR,47.246.29.226/32,🔮 IP归属地
+IP-CIDR,47.246.29.227/32,🔮 IP归属地
+IP-CIDR,47.246.29.225/32,🔮 IP归属地
+IP-CIDR,47.246.29.224/32,🔮 IP归属地
+IP-CIDR,47.246.29.222/32,🔮 IP归属地
+IP-CIDR,47.246.29.229/32,🔮 IP归属地
+IP-CIDR,47.246.29.228/32,🔮 IP归属地
+IP-CIDR,211.152.149.12/32,🔮 IP归属地
+IP-CIDR,49.51.224.95/32,🔮 IP归属地
+IP-CIDR,43.175.44.15/32,🔮 IP归属地
+IP-CIDR,23.236.104.30/32,🔮 IP归属地
+IP-CIDR,43.132.81.61/32,🔮 IP归属地
+IP-CIDR,101.33.27.26/32,🔮 IP归属地
+IP-CIDR,43.152.29.38/32,🔮 IP归属地
+IP-CIDR,43.152.26.110/32,🔮 IP归属地
+IP-CIDR,101.33.11.32/32,🔮 IP归属地
+IP-CIDR,163.181.1.228/32,🔮 IP归属地
+IP-CIDR,163.181.1.226/32,🔮 IP归属地
+IP-CIDR,163.181.1.230/32,🔮 IP归属地
+IP-CIDR,163.181.1.227/32,🔮 IP归属地
+IP-CIDR,163.181.1.231/32,🔮 IP归属地
+IP-CIDR,163.181.1.229/32,🔮 IP归属地
+IP-CIDR,163.181.1.224/32,🔮 IP归属地
+IP-CIDR,163.181.1.225/32,🔮 IP归属地
+IP-CIDR,47.246.23.230/32,🔮 IP归属地
+IP-CIDR,47.246.23.234/32,🔮 IP归属地
+IP-CIDR,47.246.23.228/32,🔮 IP归属地
+IP-CIDR,47.246.23.233/32,🔮 IP归属地
+IP-CIDR,47.246.23.231/32,🔮 IP归属地
+IP-CIDR,47.246.23.232/32,🔮 IP归属地
+IP-CIDR,47.246.23.227/32,🔮 IP归属地
+IP-CIDR,47.246.23.229/32,🔮 IP归属地
+IP-CIDR,43.152.42.109/32,🔮 IP归属地
+IP-CIDR,43.175.22.27/32,🔮 IP归属地
+IP-CIDR,43.175.22.42/32,🔮 IP归属地
+IP-CIDR,43.175.22.26/32,🔮 IP归属地
+IP-CIDR,43.132.84.11/32,🔮 IP归属地
+IP-CIDR,101.33.20.34/32,🔮 IP归属地
+IP-CIDR,49.51.224.105/32,🔮 IP归属地
+IP-CIDR,49.51.224.103/32,🔮 IP归属地
+IP-CIDR,163.181.92.232/32,🔮 IP归属地
+IP-CIDR,163.181.92.233/32,🔮 IP归属地
+IP-CIDR,163.181.92.237/32,🔮 IP归属地
+IP-CIDR,163.181.92.238/32,🔮 IP归属地
+IP-CIDR,163.181.92.231/32,🔮 IP归属地
+IP-CIDR,163.181.92.234/32,🔮 IP归属地
+IP-CIDR,163.181.92.236/32,🔮 IP归属地
+IP-CIDR,163.181.92.235/32,🔮 IP归属地
+IP-CIDR,43.132.83.175/32,🔮 IP归属地
+IP-CIDR,43.132.83.54/32,🔮 IP归属地
+IP-CIDR,43.132.83.9/32,🔮 IP归属地
+IP-CIDR,43.132.91.37/32,🔮 IP归属地
+IP-CIDR,43.132.91.110/32,🔮 IP归属地
+IP-CIDR,43.132.91.45/32,🔮 IP归属地
+IP-CIDR,150.109.222.109/32,🔮 IP归属地
+IP-CIDR,150.109.222.102/32,🔮 IP归属地
+IP-CIDR,150.109.222.97/32,🔮 IP归属地
+IP-CIDR,150.109.223.49/32,🔮 IP归属地
+IP-CIDR,150.109.222.103/32,🔮 IP归属地
+IP-CIDR,150.109.222.99/32,🔮 IP归属地
+IP-CIDR,150.109.222.110/32,🔮 IP归属地
+IP-CIDR,203.205.220.62/32,🔮 IP归属地
+DOMAIN,keylol.com,🔮 IP归属地
+DOMAIN-SUFFIX,ixigua.com,🔮 IP归属地
+DOMAIN,www.wenshushu.cn,🔮 IP归属地
+IP-CIDR,119.29.29.98/32,REJECT
+IP-CIDR,120.53.130.158/32,🔮 IP归属地
+DOMAIN,frodo.douban.com,🔮 IP归属地
+DOMAIN,www.douban.com,🔮 IP归属地
+DOMAIN,api.coolapk.com,🔮 IP归属地
+DOMAIN,api2.coolapk.com,🔮 IP归属地
+DOMAIN,api.taptapdada.com,🔮 IP归属地
+DOMAIN,god.gameyw.netease.com,🔮 IP归属地
+DOMAIN-SUFFIX,huya.com,🔮 IP归属地
+DOMAIN-SUFFIX,dongqiudi.com,🔮 IP归属地
+DOMAIN,ngabbs.com,🔮 IP归属地
+DOMAIN,bbs.nga.cn,🔮 IP归属地
+DOMAIN,nga.178.com,🔮 IP归属地
+DOMAIN,api.vip.miui.com,🔮 IP归属地
+DOMAIN-SUFFIX,music.163.com,🔮 IP归属地
+DOMAIN,nstool.netease.com,🔮 IP归属地
+DOMAIN,wanproxy.127.net,🔮 IP归属地
+DOMAIN,mam.netease.com,🔮 IP归属地
+DOMAIN,dt.netease.im,🔮 IP归属地
+DOMAIN,api.iplay.163.com,🔮 IP归属地
+DOMAIN,api.k.163.com,🔮 IP归属地
+DOMAIN,lbs.netease.im,🔮 IP归属地
+DOMAIN,wannos.127.net,🔮 IP归属地
+DOMAIN,ac.dun.163.com,🔮 IP归属地
+DOMAIN-SUFFIX,music.126.net,🔮 IP归属地
+DOMAIN-SUFFIX,laiqukankan.com,🔮 IP归属地
+DOMAIN-SUFFIX,music.ntes53.netease.com,🔮 IP归属地
+IP-CIDR,101.71.154.241/32,🔮 IP归属地
+IP-CIDR,103.126.92.132/32,🔮 IP归属地
+IP-CIDR,103.126.92.133/32,🔮 IP归属地
+IP-CIDR,112.13.119.18/32,🔮 IP归属地
+IP-CIDR,112.13.122.4/32,🔮 IP归属地
+IP-CIDR,115.236.118.34/32,🔮 IP归属地
+IP-CIDR,115.236.121.4/32,🔮 IP归属地
+IP-CIDR,45.254.48.1/32,🔮 IP归属地
+IP-CIDR,59.111.160.195/32,🔮 IP归属地
+IP-CIDR,59.111.19.33/32,🔮 IP归属地
+IP-CIDR,59.111.19.53/32,🔮 IP归属地
+DOMAIN-SUFFIX,music.163.com.163jiasu.com,🔮 IP归属地
+IP-CIDR,119.36.90.80/32,🔮 IP归属地
+IP-CIDR,111.48.137.146/32,🔮 IP归属地
+IP-CIDR,1.95.21.35/32,🔮 IP归属地
+IP-CIDR,47.100.127.239/32,🔮 IP归属地
+DOMAIN-SUFFIX,lofter.com,🔮 IP归属地
+DOMAIN,yaolu.yuedu.163.com,🔮 IP归属地
+DOMAIN-SUFFIX,lf127.net,DIRECT
+DOMAIN-SUFFIX,hls3-akm.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,hlsa-akm.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,hls1a-akm.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,hls3a-akm.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,vplay1a.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,vplay3a.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,ws-tct.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,akm-tct.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,tx2play1.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,tc-tct1.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,ws3.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,wsproxy.douyu.com,DIRECT
+DOMAIN-SUFFIX,danmuproxy.douyu.com,DIRECT
+DOMAIN-SUFFIX,img.douyucdn.cn,DIRECT
+DOMAIN-SUFFIX,douyucdn.cn,🔮 IP归属地
+DOMAIN-SUFFIX,douyu.com,🔮 IP归属地
+DOMAIN,bbs-api.mihoyo.com,🔮 IP归属地
+DOMAIN,bbs-api.miyoushe.com,🔮 IP归属地
+DOMAIN-SUFFIX,douban.com,🔮 IP归属地
+IP-CIDR,49.233.242.15/32,🔮 IP归属地
+IP-CIDR,81.70.124.99/32,🔮 IP归属地
+IP-CIDR,81.70.125.19/32,🔮 IP归属地
+IP-CIDR,140.143.177.206/32,🔮 IP归属地
+DOMAIN,api.xiaoheihe.cn,🔮 IP归属地
+DOMAIN,y.qq.com,DIRECT
+DOMAIN-SUFFIX,y.qq.com,🔮 IP归属地
+DOMAIN,zonai.skland.com,🔮 IP归属地
+DOMAIN,china-img.soulapp.cn,DIRECT
+DOMAIN,img.soulapp.cn,DIRECT
+DOMAIN-SUFFIX,soulapp.cn,🔮 IP归属地
+DOMAIN,druidv6.if.qidian.com,🔮 IP归属地
+DOMAIN,ptlogin6.qidian.com,🔮 IP归属地
+DOMAIN,api.wmpvp.com,🔮 IP归属地
+DOMAIN,bbs.mobileapi.hupu.com,🔮 IP归属地
+DOMAIN,cmt.ithome.com,🔮 IP归属地
+
+# 6. 广告拦截（使用官方支持的 GeoSite 规则集替换原 8.7 万条规则）
+GEOSITE,category-ads-all,REJECT
+
+# 7. Google Voice
+DOMAIN,voice.google.com,Google Voice
+DOMAIN,voice-pa.googleapis.com,Google Voice
+DOMAIN,telephony-pa.googleapis.com,Google Voice
+DOMAIN-SUFFIX,telephony.goog,Google Voice
+DOMAIN-KEYWORD,stun.l.google.com,Google Voice
+DOMAIN,lens.l.google.com,Google Voice
+
+# 8. AI 平台
+GEOSITE,openai,💬 Ai平台
+GEOSITE,anthropic,💬 Ai平台
+GEOSITE,google-gemini,💬 Ai平台
+DOMAIN-SUFFIX,claude.ai,💬 Ai平台
+DOMAIN-SUFFIX,claude.com,💬 Ai平台
+DOMAIN-SUFFIX,chatgpt.com,💬 Ai平台
+DOMAIN-SUFFIX,sora.com,💬 Ai平台
+DOMAIN-SUFFIX,cursor.com,💬 Ai平台
+DOMAIN-SUFFIX,cursor.sh,💬 Ai平台
+DOMAIN-SUFFIX,perplexity.ai,💬 Ai平台
+DOMAIN-SUFFIX,mistral.ai,💬 Ai平台
+DOMAIN-SUFFIX,meta.ai,💬 Ai平台
+DOMAIN-SUFFIX,x.ai,💬 Ai平台
+DOMAIN-SUFFIX,grazie.ai,💬 Ai平台
+DOMAIN-SUFFIX,jetbrains.ai,💬 Ai平台
+DOMAIN,api.groq.com,💬 Ai平台
+DOMAIN,console.groq.com,💬 Ai平台
+DOMAIN,api.together.xyz,💬 Ai平台
+DOMAIN,api.githubcopilot.com,💬 Ai平台
+DOMAIN,copilot-proxy.githubusercontent.com,💬 Ai平台
+DOMAIN-SUFFIX,copilot.cloud.microsoft,💬 Ai平台
+DOMAIN-SUFFIX,copilot.microsoft.com,💬 Ai平台
+
+# 9. OneDrive
+GEOSITE,onedrive,Ⓜ️ OneDrive
+PROCESS-NAME,OneDrive,Ⓜ️ OneDrive
+PROCESS-NAME,OneDriveUpdater,Ⓜ️ OneDrive
+DOMAIN-KEYWORD,1drv,Ⓜ️ OneDrive
+DOMAIN-KEYWORD,onedrive,Ⓜ️ OneDrive
+DOMAIN-KEYWORD,skydrive,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,livefilestore.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,oneclient.sfx.ms,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,onedrive.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,onedrive.live.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,photos.live.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,sharepoint.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,sharepointonline.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,skydrive.wns.windows.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,spoprod-a.akamaihd.net,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,storage.live.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,storage.msn.com,Ⓜ️ OneDrive
+DOMAIN-SUFFIX,microsoftpersonalcontent.com,Ⓜ️ OneDrive
+
+# 10. 微软服务
+GEOSITE,microsoft,Ⓜ️ 微软
+
+# 11. 油管视频
+GEOSITE,youtube,📹 油管视频
+
+# 12. 谷歌服务
+GEOSITE,google,📢 谷歌
+GEOIP,google,📢 谷歌,no-resolve
+
+# 13. 苹果服务
+GEOSITE,apple,🍎 苹果服务
+IP-CIDR,17.0.0.0/8,🍎 苹果服务,no-resolve
+IP-CIDR,63.92.224.0/19,🍎 苹果服务,no-resolve
+IP-CIDR,65.199.22.0/23,🍎 苹果服务,no-resolve
+IP-CIDR,139.178.128.0/18,🍎 苹果服务,no-resolve
+IP-CIDR,144.178.0.0/19,🍎 苹果服务,no-resolve
+IP-CIDR,144.178.36.0/22,🍎 苹果服务,no-resolve
+IP-CIDR,144.178.48.0/20,🍎 苹果服务,no-resolve
+IP-CIDR,192.35.50.0/24,🍎 苹果服务,no-resolve
+IP-CIDR,198.183.17.0/24,🍎 苹果服务,no-resolve
+IP-CIDR,205.180.175.0/24,🍎 苹果服务,no-resolve
+
+# 14. 电报消息
+GEOSITE,telegram,📲 电报消息
+GEOIP,telegram,📲 电报消息,no-resolve
+
+# 15. WeChat
+DOMAIN-SUFFIX,wechat.com,WeChat
+DOMAIN-SUFFIX,wechatlegal.net,WeChat
+DOMAIN-SUFFIX,wechatos.net,WeChat
+DOMAIN-SUFFIX,wechatopen.com,WeChat
+DOMAIN-SUFFIX,wechatpay.com,WeChat
+DOMAIN-SUFFIX,wechatpay.cn,WeChat
+IP-CIDR,101.32.0.0/16,WeChat,no-resolve
+IP-CIDR,129.226.0.0/16,WeChat,no-resolve
+IP-CIDR,150.109.0.0/16,WeChat,no-resolve
+IP-CIDR,203.205.0.0/16,WeChat,no-resolve
+IP-CIDR,43.152.0.0/16,WeChat,no-resolve
+IP-CIDR,43.153.0.0/16,WeChat,no-resolve
+IP-CIDR,43.156.0.0/16,WeChat,no-resolve
+
+# 16. 闲鱼
+IP-CIDR,47.246.0.0/16,闲鱼
+IP-CIDR,59.82.0.0/16,闲鱼
+DOMAIN-KEYWORD,goofish,闲鱼
+DOMAIN-SUFFIX,g.alicdn.com,闲鱼
+DOMAIN-SUFFIX,gw.alicdn.com,闲鱼
+
+# 17. 游戏平台
+GEOSITE,steam,🎮 游戏平台
+GEOSITE,epicgames,🎮 游戏平台
+GEOSITE,ea,🎮 游戏平台
+GEOSITE,playstation,🎮 游戏平台
+GEOSITE,nintendo,🎮 游戏平台
+
+# 18. 奈飞视频
+GEOSITE,netflix,🎥 奈飞视频
+GEOIP,netflix,🎥 奈飞视频,no-resolve
+
+# 19. 国内媒体
+GEOSITE,iqiyi,🌏 国内媒体
+GEOSITE,youku,🌏 国内媒体
+DOMAIN,apiintl.biliapi.net,🌏 国内媒体
+DOMAIN,upos-hz-mirrorakam.akamaized.net,🌏 国内媒体
+DOMAIN-SUFFIX,acg.tv,🌏 国内媒体
+DOMAIN-SUFFIX,acgvideo.com,🌏 国内媒体
+DOMAIN-SUFFIX,b23.tv,🌏 国内媒体
+DOMAIN-SUFFIX,bigfun.cn,🌏 国内媒体
+DOMAIN-SUFFIX,bigfunapp.cn,🌏 国内媒体
+DOMAIN-SUFFIX,biliapi.com,🌏 国内媒体
+DOMAIN-SUFFIX,biliapi.net,🌏 国内媒体
+DOMAIN-SUFFIX,bilibili.com,🌏 国内媒体
+DOMAIN-SUFFIX,bilibili.tv,🌏 国内媒体
+DOMAIN-SUFFIX,biligame.com,🌏 国内媒体
+DOMAIN-SUFFIX,biligame.net,🌏 国内媒体
+DOMAIN-SUFFIX,bilivideo.cn,🌏 国内媒体
+DOMAIN-SUFFIX,bilivideo.com,🌏 国内媒体
+DOMAIN-SUFFIX,hdslb.com,🌏 国内媒体
+DOMAIN-SUFFIX,im9.com,🌏 国内媒体
+DOMAIN-SUFFIX,smtcdns.net,🌏 国内媒体
+DOMAIN,intel-cache.m.iqiyi.com,🌏 国内媒体
+DOMAIN,intel-cache.video.iqiyi.com,🌏 国内媒体
+DOMAIN,intl-rcd.iqiyi.com,🌏 国内媒体
+DOMAIN,intl-subscription.iqiyi.com,🌏 国内媒体
+DOMAIN-SUFFIX,inter.iqiyi.com,🌏 国内媒体
+DOMAIN-SUFFIX,inter.ptqy.gitv.tv,🌏 国内媒体
+DOMAIN-SUFFIX,intl.iqiyi.com,🌏 国内媒体
+DOMAIN-SUFFIX,iq.com,🌏 国内媒体
+IP-CIDR,23.40.241.251/32,🌏 国内媒体,no-resolve
+IP-CIDR,23.40.242.10/32,🌏 国内媒体,no-resolve
+IP-CIDR,103.44.56.0/22,🌏 国内媒体,no-resolve
+IP-CIDR,118.26.32.0/23,🌏 国内媒体,no-resolve
+IP-CIDR,118.26.120.0/24,🌏 国内媒体,no-resolve
+IP-CIDR,223.119.62.225/28,🌏 国内媒体,no-resolve
+DOMAIN-SUFFIX,api.mob.app.letv.com,🌏 国内媒体
+DOMAIN-SUFFIX,v.smtcdns.com,🌏 国内媒体
+DOMAIN-SUFFIX,vv.video.qq.com,🌏 国内媒体
+DOMAIN-SUFFIX,youku.com,🌏 国内媒体
+IP-CIDR,106.11.0.0/16,🌏 国内媒体,no-resolve
+
+# 20. 国外媒体
+GEOSITE,disney,🌍 国外媒体
+GEOSITE,spotify,🌍 国外媒体
+GEOSITE,tiktok,🌍 国外媒体
+GEOSITE,twitch,🌍 国外媒体
+GEOSITE,bahamut,🌍 国外媒体
+GEOSITE,bbc,🌍 国外媒体
+GEOSITE,primevideo,🌍 国外媒体
+GEOSITE,hbo,🌍 国外媒体
+GEOSITE,dazn,🌍 国外媒体
+GEOSITE,abema,🌍 国外媒体
+
+# 21. 全球直连（进程与国内域名/IP）
+PROCESS-NAME,aria2c.exe,🎯 全球直连
+PROCESS-NAME,fdm.exe,🎯 全球直连
+PROCESS-NAME,Folx.exe,🎯 全球直连
+PROCESS-NAME,NetTransport.exe,🎯 全球直连
+PROCESS-NAME,Thunder.exe,🎯 全球直连
+PROCESS-NAME,Transmission.exe,🎯 全球直连
+PROCESS-NAME,uTorrent.exe,🎯 全球直连
+PROCESS-NAME,WebTorrent.exe,🎯 全球直连
+PROCESS-NAME,WebTorrent Helper.exe,🎯 全球直连
+PROCESS-NAME,qbittorrent.exe,🎯 全球直连
+PROCESS-NAME,DownloadService.exe,🎯 全球直连
+PROCESS-NAME,Weiyun.exe,🎯 全球直连
+PROCESS-NAME,baidunetdisk.exe,🎯 全球直连
+RULE-SET,LAN,🎯 全球直连
+DOMAIN-SUFFIX,cn,🎯 全球直连
+GEOSITE,cn,🎯 全球直连
+GEOIP,cn,🎯 全球直连
+
+# 22. 漏网之鱼与兜底规则
+GEOSITE,geolocation-!cn,🐟 漏网之鱼
+FINAL,🐟 漏网之鱼
