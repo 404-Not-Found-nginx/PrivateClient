@@ -18,18 +18,18 @@ detectportal.firefox.com = server:system
 
 [Proxy Group]
 # 地区节点分组（手动选择，按正则筛选订阅节点）
-🇭🇰 香港节点 = select, policy-regex-filter=(?i)(香港|hong ?kong|hk|🇭🇰)
-🇲🇴 澳门节点 = select, policy-regex-filter=(?i)(澳门|macao|macau|mo|🇲🇴)
-🇯🇵 日本节点 = select, policy-regex-filter=(?i)(日本|japan|jp|🇯🇵)
-🇺🇸 美国节点 = select, policy-regex-filter=(?i)(美国|united ?states|usa?|🇺🇸)
-🇹🇼 台湾节点 = select, policy-regex-filter=(?i)(台湾|taiwan|tw|🇹🇼|🇨🇳 台湾)
-🇸🇬 狮城节点 = select, policy-regex-filter=(?i)(新加坡|狮城|singapore|sg|🇸🇬)
-🇰🇷 韩国节点 = select, policy-regex-filter=(?i)(韩国|korea|kr|🇰🇷)
-🇮🇳 印度节点 = select, policy-regex-filter=(?i)(印度|india|in|🇮🇳), exclude-regex=(?i)(印度尼西亚|indonesia)
-🇺🇦 乌克兰节点 = select, policy-regex-filter=(?i)(乌克兰|ukraine|ua|🇺🇦)
-🇷🇺 俄罗斯节点 = select, policy-regex-filter=(?i)(俄罗斯|russia|ru|🇷🇺)
-🇹🇷 土耳其节点 = select, policy-regex-filter=(?i)(土耳其|turkey|tr|🇹🇷)
-🇦🇷 阿根廷节点 = select, policy-regex-filter=(?i)(阿根廷|argentina|ar|🇦🇷)
+🇭🇰 香港节点 = select, policy-regex-filter=(?i)(香港|hong ?kong|\bhk\b|🇭🇰)
+🇲🇴 澳门节点 = select, policy-regex-filter=(?i)(澳门|macao|macau|\bmo\b|🇲🇴)
+🇯🇵 日本节点 = select, policy-regex-filter=(?i)(日本|japan|\bjp\b|🇯🇵)
+🇺🇸 美国节点 = select, policy-regex-filter=(?i)(美国|united ?states|\busa?\b|🇺🇸)
+🇹🇼 台湾节点 = select, policy-regex-filter=(?i)(台湾|taiwan|\btw\b|🇹🇼)
+🇸🇬 狮城节点 = select, policy-regex-filter=(?i)(新加坡|狮城|singapore|\bsg\b|🇸🇬)
+🇰🇷 韩国节点 = select, policy-regex-filter=(?i)(韩国|korea|\bkr\b|🇰🇷)
+🇮🇳 印度节点 = select, policy-regex-filter=(?i)(印度|india|\bin\b|🇮🇳), exclude-regex=(?i)(印度尼西亚|indonesia)
+🇺🇦 乌克兰节点 = select, policy-regex-filter=(?i)(乌克兰|ukraine|\bua\b|🇺🇦)
+🇷🇺 俄罗斯节点 = select, policy-regex-filter=(?i)(俄罗斯|russia|\bru\b|🇷🇺)
+🇹🇷 土耳其节点 = select, policy-regex-filter=(?i)(土耳其|turkey|\btr\b|🇹🇷)
+🇦🇷 阿根廷节点 = select, policy-regex-filter=(?i)(阿根廷|argentina|\bar\b|🇦🇷)
 
 # 功能策略分组
 Emby影视服 = select, 🇭🇰 香港节点, 🇲🇴 澳门节点, 🇹🇼 台湾节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, policy-regex-filter=(?i)emby
